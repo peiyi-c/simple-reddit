@@ -1,0 +1,10 @@
+@use "../../App.scss" as *;
+.aside {
+  li {
+    min-height: 1rem;
+    width: 100%;
+    padding: var(--spacing-0);
+    border-radius: var(--radius);
+    border: 0.25px solid var(--color-element-border);
+  }
+}
