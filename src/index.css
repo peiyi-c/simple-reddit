@@ -27,14 +27,19 @@ html:focus-within {
 
 input,
 button {
-  padding: var(--spacing-0) var(--spacing-1);
+  padding: var(--spacing-1) var(--spacing-2);
+
   font: inherit;
   border: none;
-  border-radius: var(--radius);
+  border-radius: var(--radius-1);
   cursor: pointer;
   &:focus {
     outline: none;
   }
+}
+
+ul[role="list"] {
+  list-style: none;
 }
 
 /* custom styles */
@@ -70,6 +75,6 @@ ion-icon {
 
   &:hover {
     background-color: var(--color-bd-bg);
-    border-radius: var(--radius-2);
+    border-radius: var(--radius-5);
   }
 }

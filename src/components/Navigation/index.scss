@@ -1,6 +1,22 @@
 @use "../../App.scss" as *;
 
-main {
+nav {
   padding-top: var(--spacing-3);
   padding-bottom: var(--spacing-3);
+}
+
+.navi {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: var(--spacing-4);
+
+  button {
+    background-color: var(--color-element-bg);
+    border-radius: var(--radius-1);
+    &:hover {
+      box-shadow: var(--box-shadow);
+    }
+  }
 }
