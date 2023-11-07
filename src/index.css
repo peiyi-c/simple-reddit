@@ -36,7 +36,9 @@ button {
     outline: none;
   }
 }
-
+input {
+  background: transparent;
+}
 button {
   border: 0.25px solid var(--color-element-border);
 }

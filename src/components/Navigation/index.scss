@@ -17,6 +17,7 @@ nav {
     background-color: var(--color-element-bg);
     border-radius: var(--radius-1);
     text-transform: lowercase;
+    color: var(--color-text);
     &:hover {
       box-shadow: var(--box-shadow);
     }
