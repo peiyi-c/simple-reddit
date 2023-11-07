@@ -27,8 +27,7 @@ html:focus-within {
 
 input,
 button {
-  padding: var(--spacing-1) var(--spacing-2);
-
+  padding: var(--spacing-0) var(--spacing-1);
   font: inherit;
   border: none;
   border-radius: var(--radius-1);
@@ -76,5 +75,11 @@ ion-icon {
   &:hover {
     background-color: var(--color-bd-bg);
     border-radius: var(--radius-5);
+  }
+}
+
+@media (min-width: 750px) {
+  button {
+    padding: var(--spacing-1) var(--spacing-2);
   }
 }

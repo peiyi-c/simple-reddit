@@ -10,14 +10,18 @@ export const Header = () => {
         <fieldset>
           <ion-icon name="search" title="search"></ion-icon>
           <label htmlFor="search" />
-          <input id="search-outline" type="search" name="search" />
+          <input id="search" type="search" name="search" />
         </fieldset>
 
-        <ion-icon name="heart-outline" title="popular"></ion-icon>
+        <ion-icon class="header__icon" name="heart" title="popular"></ion-icon>
 
-        <ion-icon name="balloon-outline" title="all"></ion-icon>
+        <ion-icon class="header__icon" name="balloon" title="all"></ion-icon>
 
-        <ion-icon name="moon-outline" title></ion-icon>
+        <ion-icon
+          class="header__icon"
+          name="moon-outline"
+          title="dark mode"
+        ></ion-icon>
       </div>
     </header>
   );

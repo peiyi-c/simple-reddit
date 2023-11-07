@@ -15,11 +15,23 @@ header {
   justify-content: space-around;
   align-items: center;
   &__logo {
-    width: 18rem;
+    width: 10rem;
   }
   &__icon {
+    display: none;
   }
   .md.hydrated {
-    font-size: var(--size-3);
+    font-size: var(--size-2);
+  }
+}
+
+@media only screen and (min-width: 750px) {
+  .header {
+    &__icon {
+      display: block;
+    }
+    .md.hydrated {
+      font-size: var(--size-3);
+    }
   }
 }
