@@ -45,6 +45,7 @@ button {
 
 ul[role="list"] {
   list-style: none;
+  padding-inline: 0;
 }
 
 /* custom styles */

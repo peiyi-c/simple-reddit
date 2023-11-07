@@ -23,18 +23,12 @@ header {
   &__icon {
     display: none;
   }
-  .md.hydrated {
-    font-size: var(--size-2);
-  }
 }
 
 @media only screen and (min-width: 750px) {
   .header {
     &__icon {
       display: block;
-    }
-    .md.hydrated {
-      font-size: var(--size-3);
     }
   }
 }
