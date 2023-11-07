@@ -1,0 +1,56 @@
+/* google font*/
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700&display=swap");
+
+/* reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+input,
+button {
+  font: inherit;
+  border: none;
+  cursor: pointer;
+  &:focus {
+    outline: none;
+  }
+}
+
+/* custom styles */
+:root {
+  font-family: Outfit, Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+
+  line-height: 1.5;
+  font-weight: 400;
+  font-size: var(--size-2);
+  color-scheme: light dark;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}

@@ -1,0 +1,121 @@
+/* COLOR SCSS VARIABLES */
+// light mode //
+$blue-grey: #dae0e6; // body background-color
+$grey-1: #cccccc; // element border-color
+$white: #ffffff; // element background-color
+$brown: #372e18; // text color
+$almost-white: #f6f7f8; // input background-color
+// dark mode //
+$black-1: #030303; // body background-color
+$black-2: #343636; // element border-color
+$black-3: #1a1a1b; // element background-color
+$grey-2: #d7dadc; // text color
+$black-4: #272728; // input background-color
+
+body.light {
+  --color-bd-bg: #{$blue-grey};
+  --color-element-border: #{$grey-1};
+  --color-element-bg: #{$white};
+  --color-text: #{$brown};
+  --color-input-bg: #{$almost-white};
+}
+body.dark {
+  --color-bd-bg: #{$black-1};
+  --color-element-border: #{$black-2};
+  --color-element-bg: #{$black-3};
+  --color-text: #{$grey-2};
+  --color-input-bg: #{$black-4};
+}
+
+:root {
+  @media (prefers-color-scheme: light) {
+    --color-bd-bg: #{$blue-grey};
+    --color-element-border: #{$grey-1};
+    --color-element-bg: #{$white};
+    --color-text: #{$brown};
+    --color-input-bg: #{$almost-white};
+  }
+  @media (prefers-color-scheme: dark) {
+    --color-bd-bg: #{$black-1};
+    --color-element-border: #{$black-2};
+    --color-element-bg: #{$black-3};
+    --color-text: #{$grey-2};
+    --color-input-bg: #{$black-4};
+  }
+  /* SHADOW */
+  --box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+  --box-shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+
+  --spacing-0: 0.25rem;
+  --spacing-1: 0.5rem;
+  --spacing-2: 1rem;
+  --spacing-3: 1.5rem;
+  --spacing-4: 2.25rem;
+  --spacing-5: 4rem;
+
+  /* FONT SIZE */
+  --size-1: 0.9rem;
+  --size-2: 1rem;
+  --size-3: 1.85rem;
+  --size-4: 2rem;
+  --size-5: 2.5rem;
+
+  /* BORDER RADIUS */
+  --radius: 5px;
+  --radius-2: 100%;
+}
+
+body {
+  background-color: var(--color-bd-bg);
+  color: var(--color-text);
+}
+
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.container-sm {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+.container-lg {
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
+
+.center {
+  margin: 0 auto;
+}
+
+@media (min-width: 750px) {
+  .container {
+    width: 750px;
+  }
+}
+@media (min-width: 992px) {
+  .container {
+    width: 992px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    width: 1200px;
+  }
+  .container-sm {
+    padding-left: 3.2rem;
+    padding-right: 3.2rem;
+  }
+  .container-lg {
+    padding-left: 5rem;
+    padding-right: 5rem;
+  }
+}
+@media (min-width: 1440px) {
+  .container {
+    width: 1440px;
+  }
+}
