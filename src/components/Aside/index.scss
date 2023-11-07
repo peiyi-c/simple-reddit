@@ -1,6 +1,8 @@
 @use "../../App.scss" as *;
 
-main {
+aside {
   padding-top: var(--spacing-3);
   padding-bottom: var(--spacing-3);
+  border: 1px solid royalblue;
+  width: 100%;
 }
