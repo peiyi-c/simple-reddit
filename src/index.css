@@ -37,6 +37,10 @@ button {
   }
 }
 
+button {
+  border: 0.25px solid var(--color-element-border);
+}
+
 ul[role="list"] {
   list-style: none;
 }
@@ -71,8 +75,9 @@ fieldset {
 ion-icon {
   display: block;
   padding: var(--spacing-1);
-
+  border: 0.25px solid transparent;
   &:hover {
+    border: 0.25px solid var(--color-element-border);
     background-color: var(--color-bd-bg);
     border-radius: var(--radius-5);
   }
