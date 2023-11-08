@@ -1,5 +1,5 @@
 import "./index.scss";
-import logo from "../../assets/logo-no-background.svg";
+import logo from "../../assets/logo.png";
 
 export const Header = () => {
   return (
