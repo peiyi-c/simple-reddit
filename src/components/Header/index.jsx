@@ -1,7 +1,20 @@
 import "./index.scss";
 import logo from "../../assets/logo.png";
-
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { selectTheme, setTheme } from "../../features/themeSlice";
 export const Header = () => {
+  const dispatch = useDispatch();
+  const theme = useSelector(selectTheme);
+
+  useEffect(() => {
+    document.body.className = theme;
+    localStorage.setItem("colorMode", JSON.stringify(theme));
+  }, [theme]);
+
+  const toggleTheme = () => {
+    dispatch(setTheme(theme === "light" ? "dark" : "light"));
+  };
   return (
     <header className="center">
       <div className="header container container-sm center">
@@ -20,7 +33,8 @@ export const Header = () => {
         <ion-icon
           class="header__icon"
           name="moon-outline"
-          title="dark mode"
+          title="toggle mode"
+          onClick={toggleTheme}
         ></ion-icon>
       </div>
     </header>
