@@ -2,9 +2,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getSubreddit, getPostComments } from "../api/reddit";
 
-export const loadPosts = createAsyncThunk("subReddit/getPosts", getSubreddit);
+export const loadPosts = createAsyncThunk("subreddit/getPosts", getSubreddit);
 
-export const subRedditSlice = createSlice({
+export const subredditSlice = createSlice({
   name: "subreddit",
   initialState: {
     posts: [],
@@ -69,12 +69,12 @@ export const {
   startGetComments,
   getCommentsFailed,
   getCommentsSuccess,
-} = subRedditSlice.actions;
-export default subRedditSlice.reducer;
+} = subredditSlice.actions;
+export default subredditSlice.reducer;
 
-export const fetchPosts = (subReddit) => async (dispatch) => {
+export const fetchPosts = (subreddit) => async (dispatch) => {
   try {
-    const posts = await getSubreddit(subReddit);
+    const posts = await getSubreddit(subreddit);
     const postsWithComments = posts.map((post) => ({
       ...post,
       showingComments: false,
