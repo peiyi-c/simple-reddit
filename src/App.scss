@@ -90,14 +90,6 @@ body {
   margin: 0 auto;
 }
 
-.wrapper {
-  main {
-    visibility: visible;
-  }
-  aside {
-    visibility: hidden;
-  }
-}
 .md.hydrated {
   font-size: var(--size-2);
 }
@@ -107,16 +99,6 @@ body {
   }
   .md.hydrated {
     font-size: var(--size-3);
-  }
-  .wrapper {
-    display: grid;
-    grid-template-columns: 70% 30%;
-    main {
-      visibility: visible;
-    }
-    aside {
-      visibility: visible;
-    }
   }
 }
 @media (min-width: 992px) {
@@ -136,10 +118,6 @@ body {
   .container-lg {
     padding-left: 5rem;
     padding-right: 5rem;
-  }
-  .wrapper {
-    display: grid;
-    grid-template-columns: 75% 25%;
   }
 }
 @media (min-width: 1440px) {
