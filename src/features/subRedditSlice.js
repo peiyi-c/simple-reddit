@@ -2,36 +2,26 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getSubreddit, getPostComments } from "../api/reddit";
 
-export const loadContents = createAsyncThunk(
-  "subReddit/getCotents",
-  getSubreddit
-);
-
-export const loadComments = createAsyncThunk(
-  "subReddit/getComments",
-  getPostComments
-);
-
-const initialState = {
-  contents: [],
-  hasError: false,
-  isLoading: false,
-  selectedSubreddit: "/r/hamster/",
-};
+export const loadPosts = createAsyncThunk("subReddit/getPosts", getSubreddit);
 
 export const subRedditSlice = createSlice({
-  name: "subReddit",
-  initialState,
+  name: "subreddit",
+  initialState: {
+    posts: [],
+    hasError: false,
+    isLoading: false,
+    selectedSubreddit: "/r/hamster/",
+  },
   reducers: {
-    setContent(state, action) {
-      state.contents = action.payload;
+    setPost(state, action) {
+      state.posts = action.payload;
     },
     setSelectedSubreddit(state, action) {
       state.selectedSubreddit = action.payload;
     },
     toggleShowingComments(state, action) {
-      state.contents[action.payload].showingComments =
-        !state.contents[action.payload].showingComments;
+      state.posts[action.payload].showingComments =
+        !state.posts[action.payload].showingComments;
     },
     startGetComments(state, action) {
       // If we're hiding comment, don't fetch the comments.
@@ -53,25 +43,27 @@ export const subRedditSlice = createSlice({
     },
   },
   extraReducers: {
-    [loadContents.pending]: (state, action) => {
+    [loadPosts.pending]: (state, action) => {
       state.isLoading = true;
       state.hasError = false;
     },
-    [loadContents.rejected]: (state, action) => {
+    [loadPosts.rejected]: (state, action) => {
       state.isLoading = false;
       state.hasError = true;
     },
-    [loadContents.fulfilled]: (state, action) => {
+    [loadPosts.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.hasError = false;
-      state.contents = action.payload;
+      state.posts = action.payload;
     },
   },
 });
 
-export const selectContents = (state) => state.subReddit.contents;
+export const selectPosts = (state) => state.subreddit.posts;
+export const selectSelectedSubreddit = (state) =>
+  state.subreddit.selectedSubreddit;
 export const {
-  setContent,
+  setPost,
   setSelectedSubreddit,
   toggleShowingComments,
   startGetComments,
@@ -80,16 +72,17 @@ export const {
 } = subRedditSlice.actions;
 export default subRedditSlice.reducer;
 
-export const fetchContents = (subReddit) => async (dispatch) => {
+export const fetchPosts = (subReddit) => async (dispatch) => {
   try {
-    const contents = await getSubreddit(subReddit);
-    const contentsWithComments = contents.map((content) => ({
-      ...content,
+    const posts = await getSubreddit(subReddit);
+    const postsWithComments = posts.map((post) => ({
+      ...post,
       showingComments: false,
       comments: [],
       isLoadingComments: false,
       hasErrorComments: false,
     }));
+    dispatch(setPost(postsWithComments));
   } catch (err) {
     console.warn(err);
   }
