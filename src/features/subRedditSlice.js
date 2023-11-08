@@ -42,20 +42,21 @@ export const subredditSlice = createSlice({
       state.comments[action.payload.index].comments = action.payload.comments;
     },
   },
-  extraReducers: {
-    [loadPosts.pending]: (state, action) => {
-      state.isLoading = true;
-      state.hasError = false;
-    },
-    [loadPosts.rejected]: (state, action) => {
-      state.isLoading = false;
-      state.hasError = true;
-    },
-    [loadPosts.fulfilled]: (state, action) => {
-      state.isLoading = false;
-      state.hasError = false;
-      state.posts = action.payload;
-    },
+  extraReducers: (builder) => {
+    builder
+      .addCase(loadPosts.pending, (state) => {
+        state.isLoading = true;
+        state.hasError = false;
+      })
+      .addCase(loadPosts.rejected, (state) => {
+        state.isLoading = false;
+        state.hasError = true;
+      })
+      .addCase(loadPosts.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.hasError = false;
+        state.posts = action.payload;
+      });
   },
 });
 
