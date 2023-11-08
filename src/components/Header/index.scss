@@ -32,3 +32,9 @@ header {
     }
   }
 }
+@media (min-width: 1200px) {
+  .header {
+    justify-content: flex-end;
+    gap: var(--spacing-4);
+  }
+}

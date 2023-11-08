@@ -2,8 +2,8 @@ import "./index.scss";
 
 export const Navigation = () => {
   return (
-    <nav>
-      <ul role="list" className="navi">
+    <nav className="container container-lg">
+      <ul className="navi" role="list">
         <li>
           <button>POSTS</button>
         </li>

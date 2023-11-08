@@ -11,6 +11,7 @@
   background-color: var(--color-element-bg);
   border-radius: var(--radius);
   border: 0.25px solid var(--color-element-border);
+  box-shadow: var(--box-shadow);
 
   &__title {
     font-size: var(--size-2);

@@ -7,10 +7,12 @@ main {
   width: 100%;
   border: 1px solid salmon; // test
 }
+
 .filter {
-  width: clamp(9rem, 11rem, 50%);
-  padding: var(--spacing-0);
+  width: clamp(9rem, 50%, 15rem);
+  padding: var(--spacing-1);
   margin-bottom: var(--spacing-3);
+
   display: flex;
   background-color: var(--color-element-bg);
   border-radius: var(--radius-1);

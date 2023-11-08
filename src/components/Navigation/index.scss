@@ -1,8 +1,13 @@
 @use "../../App.scss" as *;
 
 nav {
+  width: 100%;
   padding-top: var(--spacing-3);
   padding-bottom: var(--spacing-3);
+
+  display: flex;
+
+  align-items: center;
 }
 
 .navi {
@@ -18,8 +23,9 @@ nav {
     border-radius: var(--radius-1);
     text-transform: lowercase;
     color: var(--color-text);
+    box-shadow: var(--box-shadow);
     &:hover {
-      box-shadow: var(--box-shadow);
+      box-shadow: var(--box-shadow-hover);
     }
   }
 }
