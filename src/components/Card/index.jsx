@@ -42,4 +42,4 @@ export const Card = ({ card }) => {
   );
 };
 
-export default Post;
+export default Card;
