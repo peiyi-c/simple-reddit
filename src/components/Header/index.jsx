@@ -9,7 +9,7 @@ import { setSelectedSubreddit } from "../../features/subredditSlice";
 import {
   setSearchTerm,
   selectType,
-  setType,
+  selectSearchTerm,
 } from "../../features/searchTermSlice";
 import { viewContents, viewPosts } from "../../features/visibilitySlice";
 
@@ -38,6 +38,9 @@ export const Header = () => {
   };
 
   // Search Content
+  const type = useSelector(selectType);
+  const searchTerm = useSelector(selectSearchTerm);
+  const [search, setSearch] = useSearchParams();
 
   const handleSearch = (e) => {
     if (e.key !== "Enter") {
@@ -47,10 +50,19 @@ export const Header = () => {
     if (value.trim() == "") {
       return;
     }
-    dispatch(setSearchTerm(value));
+
+    setSearch((search) => {
+      search.set("q", e.target.value);
+      //return search;
+    });
+
+    dispatch(setSearchTerm(search.get("q")));
     dispatch(viewContents());
-    navigate(`/search?${value}`);
   };
+
+  useEffect(() => {
+    navigate(`/search?q=${searchTerm}&type=${type}`);
+  }, [navigate, searchTerm, type]);
 
   return (
     <>
@@ -65,12 +77,7 @@ export const Header = () => {
           />
 
           <fieldset>
-            <ion-icon
-              name="search"
-              title="search"
-              onClick={() => dispatch(viewContents())}
-              // onClick={handleSearch}
-            ></ion-icon>
+            <ion-icon name="search" title="search"></ion-icon>
             <label htmlFor="search" />
             <input
               id="search"
