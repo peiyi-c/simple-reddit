@@ -19,8 +19,6 @@ export const Main = () => {
     dispatch(fetchPosts(selectedSubreddit));
   }, [dispatch, selectedSubreddit]);
 
-  console.log(posts);
-
   return (
     <main className="center container-sm">
       <section className="cards">
