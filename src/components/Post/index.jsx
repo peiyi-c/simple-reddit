@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import "./index.scss";
 import moment from "moment";
-export const Post = ({ post }) => {
+export const Post = ({ card }) => {
   const {
     id,
     ups,
@@ -14,26 +14,26 @@ export const Post = ({ post }) => {
     showingComments,
     permlink,
     num_comments,
-  } = post.data;
+  } = card.data;
   return (
-    <article className="post" key={id}>
-      <div className="post-left">
+    <article className="card" key={id}>
+      <div className="card-left">
         <ion-icon name="arrow-up-outline"></ion-icon>
         <span>{ups}</span>
         <ion-icon name="arrow-down-outline"></ion-icon>
         <span>{downs}</span>
       </div>
-      <div className="post-right">
-        <span className="post__subreddit-name">{subreddit_name_prefixed}</span>
-        <span className="post__author">
+      <div className="card-right">
+        <span className="card__subreddit-name">{subreddit_name_prefixed}</span>
+        <span className="card__author">
           Posted by {author} {moment.unix(created_utc).fromNow()}
         </span>
 
-        <h1 className="post__title">{title}</h1>
+        <h1 className="card__title">{title}</h1>
         {url.includes(".jpg") && (
-          <img className="post__image" src={url} alt="post" />
+          <img className="card__image" src={url} alt="card" />
         )}
-        <div className="post-bottom">
+        <div className="card-bottom">
           <ion-icon name="chatbubbles"></ion-icon>
           <span>{num_comments}</span>
         </div>
