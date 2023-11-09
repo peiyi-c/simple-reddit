@@ -3,10 +3,11 @@ import logo from "../../assets/logo.png";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectTheme, setTheme } from "../../features/themeSlice";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 
 import { setSelectedSubreddit } from "../../features/subredditSlice";
 import { setSearchTerm } from "../../features/searchTermSlice";
+
 export const Header = () => {
   // Toggle Theme
   const theme = useSelector(selectTheme);
@@ -24,10 +25,13 @@ export const Header = () => {
   const dispatch = useDispatch();
 
   const handleRedditChange = (e) => {
-    dispatch(setSelectedSubreddit(e.target.title));
+    const title = e.target.title;
+    dispatch(setSelectedSubreddit(title));
+    navigate(`${title}`);
   };
 
   // Search Content
+  const navigate = useNavigate();
   const handleSearch = (e) => {
     if (e.key !== "Enter") {
       return;
@@ -37,12 +41,19 @@ export const Header = () => {
       return;
     }
     dispatch(setSearchTerm(value));
+    navigate(`/search?${value}`);
   };
   return (
     <>
       <header className="center">
         <div className="header container container-sm center">
-          <img className="header__logo" src={logo} alt="awesome-hamster" />
+          <img
+            className="header__logo"
+            src={logo}
+            alt="awesome-hamster"
+            title="/r/hamster"
+            onClick={handleRedditChange}
+          />
 
           <fieldset>
             <ion-icon name="search" title="search"></ion-icon>
