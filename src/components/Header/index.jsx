@@ -6,7 +6,7 @@ import { selectTheme, setTheme } from "../../features/themeSlice";
 import { Outlet } from "react-router-dom";
 
 import { setSelectedSubreddit } from "../../features/subredditSlice";
-
+import { setSearchTerm } from "../../features/searchTermSlice";
 export const Header = () => {
   // Toggle Theme
   const theme = useSelector(selectTheme);
@@ -19,10 +19,24 @@ export const Header = () => {
   const toggleTheme = () => {
     dispatch(setTheme(theme === "light" ? "dark" : "light"));
   };
+
   // Change Subreddit to all or popular
   const dispatch = useDispatch();
+
   const handleRedditChange = (e) => {
     dispatch(setSelectedSubreddit(e.target.title));
+  };
+
+  // Search Content
+  const handleSearch = (e) => {
+    if (e.key !== "Enter") {
+      return;
+    }
+    const value = e.target.value;
+    if (value.trim() == "") {
+      return;
+    }
+    dispatch(setSearchTerm(value));
   };
   return (
     <>
@@ -33,7 +47,12 @@ export const Header = () => {
           <fieldset>
             <ion-icon name="search" title="search"></ion-icon>
             <label htmlFor="search" />
-            <input id="search" type="search" name="search" />
+            <input
+              id="search"
+              type="search"
+              name="search"
+              onKeyUp={handleSearch}
+            />
           </fieldset>
 
           <ion-icon
