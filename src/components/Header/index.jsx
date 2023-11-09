@@ -3,12 +3,20 @@ import logo from "../../assets/logo.png";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectTheme, setTheme } from "../../features/themeSlice";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate, useSearchParams } from "react-router-dom";
 
 import { setSelectedSubreddit } from "../../features/subredditSlice";
-import { setSearchTerm } from "../../features/searchTermSlice";
+import {
+  setSearchTerm,
+  selectType,
+  setType,
+} from "../../features/searchTermSlice";
+import { viewContents, viewPosts } from "../../features/visibilitySlice";
 
 export const Header = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   // Toggle Theme
   const theme = useSelector(selectTheme);
 
@@ -22,16 +30,15 @@ export const Header = () => {
   };
 
   // Change Subreddit to all or popular
-  const dispatch = useDispatch();
-
   const handleRedditChange = (e) => {
     const title = e.target.title;
     dispatch(setSelectedSubreddit(title));
+    dispatch(viewPosts());
     navigate(`${title}`);
   };
 
   // Search Content
-  const navigate = useNavigate();
+
   const handleSearch = (e) => {
     if (e.key !== "Enter") {
       return;
@@ -41,8 +48,10 @@ export const Header = () => {
       return;
     }
     dispatch(setSearchTerm(value));
+    dispatch(viewContents());
     navigate(`/search?${value}`);
   };
+
   return (
     <>
       <header className="center">
@@ -56,7 +65,12 @@ export const Header = () => {
           />
 
           <fieldset>
-            <ion-icon name="search" title="search"></ion-icon>
+            <ion-icon
+              name="search"
+              title="search"
+              onClick={() => dispatch(viewContents())}
+              // onClick={handleSearch}
+            ></ion-icon>
             <label htmlFor="search" />
             <input
               id="search"
