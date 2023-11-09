@@ -31,20 +31,21 @@ export const searchTermSlice = createSlice({
       state.type = action.payload;
     },
   },
-  extraReducers: {
-    [loadContents.pending]: (state, action) => {
-      state.isLoading = true;
-      state.hasError = false;
-    },
-    [loadContents.rejected]: (state, action) => {
-      state.isLoading = true;
-      state.hasError = false;
-    },
-    [loadContents.fulfilled]: (state, action) => {
-      state.isLoading = true;
-      state.hasError = false;
-      state.posts = action.payload;
-    },
+  extraReducers: (builder) => {
+    builder
+      .addCase(loadContents.pending, (state) => {
+        state.isLoading = true;
+        state.hasError = false;
+      })
+      .addCase(loadContents.rejected, (state) => {
+        state.isLoading = false;
+        state.hasError = true;
+      })
+      .addCase(loadContents.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.hasError = false;
+        state.posts = action.payload;
+      });
   },
 });
 
@@ -54,3 +55,12 @@ export const selectSearchTerm = (state) => state.search.searchTerm;
 export const selectContents = (state) => state.search.contents;
 
 export default searchTermSlice.reducer;
+
+export const fetchContents = (searchTerm, type) => async (dispatch) => {
+  try {
+    const contents = await getSearchContent(searchTerm, type);
+    dispatch(setContent(contents));
+  } catch (err) {
+    console.warn(err);
+  }
+};
