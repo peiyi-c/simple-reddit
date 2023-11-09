@@ -25,7 +25,7 @@ export const Main = () => {
     <main className="center container-sm">
       <section className="cards">
         {posts.map((post, index) => (
-          <Post key={post.id} post={post} />
+          <Post key={index} post={post} />
         ))}
       </section>
     </main>

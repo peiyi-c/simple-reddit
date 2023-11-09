@@ -5,8 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectTheme, setTheme } from "../../features/themeSlice";
 import { Outlet } from "react-router-dom";
 
+import { setSelectedSubreddit } from "../../features/subredditSlice";
+
 export const Header = () => {
-  const dispatch = useDispatch();
+  // Toggle Theme
   const theme = useSelector(selectTheme);
 
   useEffect(() => {
@@ -16,6 +18,11 @@ export const Header = () => {
 
   const toggleTheme = () => {
     dispatch(setTheme(theme === "light" ? "dark" : "light"));
+  };
+  // Change Subreddit to all or popular
+  const dispatch = useDispatch();
+  const handleRedditChange = (e) => {
+    dispatch(setSelectedSubreddit(e.target.title));
   };
   return (
     <>
@@ -32,10 +39,16 @@ export const Header = () => {
           <ion-icon
             class="header__icon"
             name="heart"
-            title="popular"
+            title="/r/popular"
+            onClick={handleRedditChange}
           ></ion-icon>
 
-          <ion-icon class="header__icon" name="balloon" title="all"></ion-icon>
+          <ion-icon
+            class="header__icon"
+            name="balloon"
+            title="/r/all"
+            onClick={handleRedditChange}
+          ></ion-icon>
 
           <ion-icon
             class="header__icon"
