@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import "./index.scss";
-import Post from "../Post";
+import Card from "../Card";
 import { useEffect } from "react";
 import {
   selectPosts,

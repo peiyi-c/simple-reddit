@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import "./index.scss";
 import moment from "moment";
-export const Post = ({ card }) => {
+export const Card = ({ card }) => {
   const {
     id,
     ups,
