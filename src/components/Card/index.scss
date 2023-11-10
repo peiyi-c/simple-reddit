@@ -1,6 +1,5 @@
 @use "../../App.scss" as *;
 .card {
-  border: 1px solid seagreen; // test
   width: 100%;
   min-height: 3rem;
   padding: 1rem;
@@ -12,25 +11,36 @@
   border-radius: var(--radius);
   border: 0.25px solid var(--color-element-border);
   box-shadow: var(--box-shadow);
-
+  &__ups,
+  &__downs {
+    font-size: var(--size-0);
+    position: relative;
+    bottom: var(--spacing-0);
+  }
   &__subreddit-name {
     text-align: right;
-    font-size: var(--size-1);
+    font-size: var(--size-0);
+    font-weight: 600;
   }
   &__author {
     font-size: var(--size-1);
+    font-weight: 500;
+  }
+  &__time {
+    font-size: var(--size-0);
   }
   &__title {
     font-size: var(--size-2);
   }
   .md.hydrated {
-    font-size: var(--size-2);
+    font-size: var(--size-1);
   }
   ion-icon {
     padding: var(--spacing-0);
     border: none;
     &:hover {
       border: none;
+      background-color: transparent;
     }
   }
   &__image {
@@ -40,7 +50,26 @@
     object-fit: cover;
     border-radius: var(--radius);
   }
-
+  &__video {
+    max-width: 100%;
+    max-height: 25rem;
+    margin-top: var(--spacing-2);
+    object-fit: contain;
+    border-radius: var(--radius);
+  }
+  &__comment {
+    &-icon {
+      margin-top: var(--spacing-0);
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+  }
+  &-top {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
   &-left {
     display: flex;
     flex-direction: column;
@@ -53,8 +82,5 @@
   }
   &-bottom {
     width: 100%;
-    display: flex;
-    align-items: center;
-    text-align: right;
   }
 }

@@ -1,0 +1,28 @@
+@use "../../App.scss" as *;
+.comment {
+  &-wrapper {
+    display: block;
+    padding: var(--spacing-1) var(--spacing-2);
+    margin: var(--spacing-2);
+    background-color: var(--color-element-bg);
+    border: 0.25px solid var(--color-element-border);
+    box-shadow: var(--box-shadow);
+  }
+  &-heading {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  &-body {
+    display: block;
+    margin-top: var(--spacing-1);
+    font-size: var(--size-1);
+  }
+  &__author {
+    font-size: var(--size-1);
+    font-weight: bold;
+  }
+  &__time {
+    font-size: var(--size-0);
+  }
+}

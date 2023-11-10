@@ -22,7 +22,7 @@ export const getSearchContent = async (searchTerm, type = "link") => {
   }
 };
 
-export const getPostComments = async (permalink) => {
+export const getLinkComments = async (index = index, permalink) => {
   try {
     const response = await fetch(`${BASE_URL}${permalink}.json`);
     const json = await response.json();
