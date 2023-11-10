@@ -1,0 +1,15 @@
+@use "../../App.scss" as *;
+.community {
+  &-wrapper {
+    display: block;
+    padding: var(--spacing-1) var(--spacing-2);
+    background-color: var(--color-element-bg);
+    border: 0.25px solid var(--color-element-border);
+    box-shadow: var(--box-shadow);
+    border-radius: var(--radius);
+  }
+  &-top {
+    display: flex;
+    justify-content: space-between;
+  }
+}
