@@ -6,11 +6,7 @@ import { selectTheme, setTheme } from "../../features/themeSlice";
 import { Outlet, useNavigate, useSearchParams } from "react-router-dom";
 
 import { setSelectedSubreddit } from "../../features/subredditSlice";
-import {
-  setSearchTerm,
-  selectType,
-  selectSearchTerm,
-} from "../../features/searchTermSlice";
+import { setSearchTerm, setType } from "../../features/searchTermSlice";
 import { viewContents, viewPosts } from "../../features/visibilitySlice";
 
 export const Header = () => {
@@ -38,8 +34,6 @@ export const Header = () => {
   };
 
   // Search Content
-  const type = useSelector(selectType);
-  const searchTerm = useSelector(selectSearchTerm);
   const [search, setSearch] = useSearchParams();
 
   const handleSearch = (e) => {
@@ -50,19 +44,18 @@ export const Header = () => {
     if (value.trim() == "") {
       return;
     }
+    //setSearch((search) => {
+    // search.set("q", e.target.value);
+    // search.set("type", "link");
+    //  return search;
+    //});
+    setSearch((search) => ({ ...search, q: e.target.value, type: "link" }));
 
-    setSearch((search) => {
-      search.set("q", e.target.value);
-      //return search;
-    });
-
-    dispatch(setSearchTerm(search.get("q")));
+    dispatch(setSearchTerm(value));
+    dispatch(setType("link"));
     dispatch(viewContents());
+    navigate(`/search?q=${value}&type=link`);
   };
-
-  useEffect(() => {
-    navigate(`/search?q=${searchTerm}&type=${type}`);
-  }, [navigate, searchTerm, type]);
 
   return (
     <>
