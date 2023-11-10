@@ -1,0 +1,25 @@
+@use "../../App.scss" as *;
+
+.user {
+  &-wrapper {
+    display: block;
+    padding: var(--spacing-1) var(--spacing-2);
+    background-color: var(--color-element-bg);
+    border: 0.25px solid var(--color-element-border);
+    box-shadow: var(--box-shadow);
+    border-radius: var(--radius);
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: var(--spacing-0);
+  }
+
+  &-image {
+    width: var(--size-3);
+    height: var(--size-3);
+    border-radius: var(--radius-5);
+  }
+  &-name {
+  }
+}
