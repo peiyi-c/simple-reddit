@@ -3,6 +3,7 @@ import { ThemeMessage } from "./containers/themeContext";
 import Header from "./components/Header";
 import { HomePage } from "./components/HomePage";
 import { Search } from "./components/Search";
+import { NotFound } from "./components/NotFound";
 import {
   RouterProvider,
   createBrowserRouter,
@@ -16,6 +17,7 @@ const appRouter = createBrowserRouter(
       <Route index element={<HomePage />} />
       <Route path="/r/:subreddit" element={<HomePage />} />
       <Route path="/search" element={<Search />} />
+      <Route path="*" element={<NotFound />} />
     </Route>
   )
 );
