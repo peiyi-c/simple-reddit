@@ -23,6 +23,8 @@ import {
   Navigate,
   useNavigate,
 } from "react-router-dom";
+import { User } from "../User";
+import { Community } from "../Community";
 
 export const Main = () => {
   const dispatch = useDispatch();
@@ -87,8 +89,14 @@ export const Main = () => {
           contents.map((content, index) => (
             <Card key={index} index={index} card={content} />
           ))}
-        {visibility === "contents" && type === "user" && <h1>Users</h1>}
-        {visibility === "contents" && type === "sr" && <h1>Communities</h1>}
+        {visibility === "contents" &&
+          type === "user" &&
+          contents.map((content, index) => <User user={content} key={index} />)}
+        {visibility === "contents" &&
+          type === "sr" &&
+          contents.map((content, index) => (
+            <Community community={content} key={index} />
+          ))}
       </section>
     </main>
   );
