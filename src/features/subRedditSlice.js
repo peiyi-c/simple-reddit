@@ -1,8 +1,11 @@
-/* eslint-disable no-unused-vars */
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getSubreddit, getPostComments } from "../api/reddit";
+import { getSubreddit, getLinkComments } from "../api/reddit";
 
 export const loadPosts = createAsyncThunk("subreddit/getPosts", getSubreddit);
+export const loadPostComments = createAsyncThunk(
+  "subreddit/getComments",
+  getLinkComments
+);
 
 export const subredditSlice = createSlice({
   name: "subreddit",
@@ -19,27 +22,13 @@ export const subredditSlice = createSlice({
     setSelectedSubreddit(state, action) {
       state.selectedSubreddit = action.payload;
     },
-    toggleShowingComments(state, action) {
+    toggleShowingPostComments(state, action) {
       state.posts[action.payload].showingComments =
         !state.posts[action.payload].showingComments;
     },
-    startGetComments(state, action) {
-      // If we're hiding comment, don't fetch the comments.
-      state.comments[action.payload].showingComments =
-        !state.comments[action.payload].showingComments;
-      if (!state.comments[action.payload].showingComments) {
-        return;
-      }
-      state.comments[action.payload].isLoadingComments = true;
-      state.comments[action.payload].hasErrorComments = false;
-    },
-    getCommentsFailed(state, action) {
-      state.comments[action.payload].isLoadingComments = false;
-      state.comments[action.payload].hasErrorComments = true;
-    },
-    getCommentsSuccess(state, action) {
-      state.comments[action.payload.index].isLoadingComments = false;
-      state.comments[action.payload.index].comments = action.payload.comments;
+    setPostComment(state, action) {
+      const { index, comments } = action.payload;
+      state.posts[index].comments = comments;
     },
   },
   extraReducers: (builder) => {
@@ -56,6 +45,23 @@ export const subredditSlice = createSlice({
         state.isLoading = false;
         state.hasError = false;
         state.posts = action.payload;
+      })
+      .addCase(loadPostComments.pending, (state, action) => {
+        state.posts[action.payload].showingComments =
+          !state.posts[action.payload].showingComments;
+        if (!state.posts[action.payload.index].showingComments) {
+          return;
+        }
+        state.posts[action.payload.index].isLoadingComments = true;
+        state.posts[action.payload.index].hasErrorComments = false;
+      })
+      .addCase(loadPostComments.rejected, (state, action) => {
+        state.posts[action.payload.index].isLoadingComments = false;
+        state.posts[action.payload.index].hasErrorComments = true;
+      })
+      .addCase(loadPostComments.fulfilled, (state, action) => {
+        state.posts[action.payload.index].isLoadingComments = false;
+        state.posts[action.payload.index].comments = action.payload.comments;
       });
   },
 });
@@ -66,10 +72,8 @@ export const selectSelectedSubreddit = (state) =>
 export const {
   setPost,
   setSelectedSubreddit,
-  toggleShowingComments,
-  startGetComments,
-  getCommentsFailed,
-  getCommentsSuccess,
+  toggleShowingPostComments,
+  setPostComment,
 } = subredditSlice.actions;
 export default subredditSlice.reducer;
 
@@ -89,12 +93,12 @@ export const fetchPosts = (subreddit) => async (dispatch) => {
   }
 };
 
-export const fetchComments = (index, permlink) => async (dispatch) => {
+export const fetchPostComments = (index, permalink) => async (dispatch) => {
+  dispatch(toggleShowingPostComments(index));
   try {
-    dispatch(startGetComments(index));
-    const comments = await getPostComments(permlink);
-    dispatch(getCommentsSuccess({ index, comments }));
+    const comments = await getLinkComments(index, permalink);
+    dispatch(setPostComment({ index: index, comments: comments }));
   } catch (err) {
-    dispatch(getCommentsFailed(index));
+    console.warn(err);
   }
 };

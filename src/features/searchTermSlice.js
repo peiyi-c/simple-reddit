@@ -1,11 +1,14 @@
-/* eslint-disable no-undef */
-/* eslint-disable no-unused-vars */
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getSearchContent } from "../api/reddit";
+import { getSearchContent, getLinkComments } from "../api/reddit";
 
 export const loadContents = createAsyncThunk(
   "search/getContents",
   getSearchContent
+);
+
+export const loadContentComments = createAsyncThunk(
+  "search/getComments",
+  getLinkComments
 );
 
 export const searchTermSlice = createSlice({
@@ -30,6 +33,14 @@ export const searchTermSlice = createSlice({
     setType(state, action) {
       state.type = action.payload;
     },
+    toggleShowingContentComments(state, action) {
+      state.contents[action.payload].showingComments =
+        !state.contents[action.payload].showingComments;
+    },
+    setContentComment(state, action) {
+      const { index, comments } = action.payload;
+      state.contents[index].comments = comments;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -49,18 +60,50 @@ export const searchTermSlice = createSlice({
   },
 });
 
-export const { setSearchTerm, clearSearchTerm, setContent, setType } =
-  searchTermSlice.actions;
+export const {
+  setSearchTerm,
+  clearSearchTerm,
+  setContent,
+  setType,
+  setContentComment,
+  toggleShowingContentComments,
+} = searchTermSlice.actions;
 export const selectSearchTerm = (state) => state.search.searchTerm;
 export const selectType = (state) => state.search.type;
 export const selectContents = (state) => state.search.contents;
 
 export default searchTermSlice.reducer;
 
-export const fetchContents = (searchTerm, type) => async (dispatch) => {
+export const fetchContents =
+  (searchTerm, type = "link") =>
+  async (dispatch) => {
+    if (type == null) {
+      type = "link";
+    }
+    try {
+      const contents = await getSearchContent(searchTerm, type);
+      if (type === "link") {
+        const contentsWithComments = contents.map((content) => ({
+          ...content,
+          showingComments: false,
+          comments: [],
+          isLoadingComments: false,
+          hasErrorComments: false,
+        }));
+        dispatch(setContent(contentsWithComments));
+      } else {
+        dispatch(setContent(contents));
+      }
+    } catch (err) {
+      console.warn(err);
+    }
+  };
+
+export const fetchContentComments = (index, permalink) => async (dispatch) => {
+  dispatch(toggleShowingContentComments(index));
   try {
-    const contents = await getSearchContent(searchTerm, type);
-    dispatch(setContent(contents));
+    const comments = await getLinkComments(index, permalink);
+    dispatch(setContentComment({ index: index, comments: comments }));
   } catch (err) {
     console.warn(err);
   }
