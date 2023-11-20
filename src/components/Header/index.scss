@@ -6,6 +6,7 @@ header {
   background-color: var(--color-element-bg);
   box-shadow: var(--box-shadow);
   border-radius: 0 0 var(--radius) var(--radius);
+  border-bottom: 0.25px solid var(--color-element-border);
 }
 
 .header {
