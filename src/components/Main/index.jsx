@@ -17,12 +17,7 @@ import {
   viewContents,
 } from "../../features/visibilitySlice";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  useSearchParams,
-  useLocation,
-  Navigate,
-  useNavigate,
-} from "react-router-dom";
+import { useSearchParams, useLocation, useNavigate } from "react-router-dom";
 import { User } from "../User";
 import { Community } from "../Community";
 
