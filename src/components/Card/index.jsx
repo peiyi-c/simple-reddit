@@ -25,7 +25,10 @@ export const Card = ({ index, card }) => {
     permalink,
     num_comments,
     media,
+    thumbnail,
   } = card.data;
+
+  const hasImage = url.includes(".jpg");
 
   const handleCommentClick = () => {
     visibility === "posts"
@@ -54,11 +57,16 @@ export const Card = ({ index, card }) => {
 
         <h1 className="card__title">{title}</h1>
         <span>{selftext}</span>
+
         {url && url.includes(".jpg") && (
           <img className="card__image" src={url} alt="card" />
         )}
+        {!hasImage && thumbnail && thumbnail.includes(".jpg") && (
+          <img className="card__image-sm" src={thumbnail} alt="card" />
+        )}
+
         {media?.reddit_video?.fallback_url && (
-          <video className="card__video" controls>
+          <video className="card__video" controls muted>
             <source src={media.reddit_video.fallback_url} type="video/mp4" />
           </video>
         )}
