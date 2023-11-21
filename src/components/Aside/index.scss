@@ -10,7 +10,11 @@ aside {
   background-color: var(--color-element-bg);
   border-radius: var(--radius);
   border: 0.25px solid var(--color-element-border);
-  &__logo {
-    width: 20%;
+  &__heading {
+    display: flex;
+    gap: 5%;
+    &-logo {
+      width: 20%;
+    }
   }
 }
