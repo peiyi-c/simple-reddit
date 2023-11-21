@@ -1,9 +1,11 @@
 /* eslint-disable react/prop-types */
 import "./index.scss";
 import moment from "moment";
-
+import { Reply } from "../Reply";
 export const Comment = ({ comment }) => {
   const { author, created_utc, body } = comment;
+  const commentReplies = comment.replies?.data?.children[0] || {};
+
   return (
     <div className="comment">
       <div className="comment-wrapper">
@@ -14,6 +16,7 @@ export const Comment = ({ comment }) => {
           </span>
         </div>
         <span className="comment-body">{body}</span>
+        {commentReplies && <Reply reply={commentReplies.data} />}
       </div>
     </div>
   );

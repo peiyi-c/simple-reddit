@@ -1,0 +1,30 @@
+@use "../../App.scss" as *;
+.reply {
+  opacity: 0.75;
+
+  &-wrapper {
+    display: block;
+    padding: var(--spacing-0) var(--spacing-1);
+    margin: var(--spacing-1) 0 var(--spacing-1) var(--spacing-0);
+    border: 0.25px solid var(--color-element-border);
+    border-radius: calc(var(--radius) / 3);
+  }
+  &-heading {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  &-body {
+    display: block;
+    margin-top: var(--spacing-1);
+    font-size: var(--size-1);
+    line-break: anywhere;
+  }
+  &__author {
+    font-size: var(--size-1);
+    font-weight: bold;
+  }
+  &__time {
+    font-size: var(--size-0);
+  }
+}
