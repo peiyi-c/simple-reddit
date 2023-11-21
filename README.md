@@ -1,6 +1,6 @@
 ## Simple reddit with hamster theme
 
-This is a simplified reddit, built by using [this reddit API](https://github.com/reddit-archive/reddit/wiki/JSON).
+This is a simplified reddit using [this reddit API](https://github.com/reddit-archive/reddit/wiki/JSON).
 
 ### Project Features
 
