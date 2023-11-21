@@ -6,6 +6,7 @@
     margin: var(--spacing-2);
     background-color: var(--color-element-bg);
     border: 0.25px solid var(--color-element-border);
+    border-radius: calc(var(--radius) / 2);
     box-shadow: var(--box-shadow);
   }
   &-heading {
@@ -17,6 +18,7 @@
     display: block;
     margin-top: var(--spacing-1);
     font-size: var(--size-1);
+    line-break: anywhere;
   }
   &__author {
     font-size: var(--size-1);

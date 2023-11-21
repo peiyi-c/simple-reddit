@@ -10,6 +10,32 @@
   }
   &-top {
     display: flex;
+    gap: var(--spacing-2);
+    align-items: center;
     justify-content: space-between;
+
+    div {
+      display: flex;
+      gap: var(--spacing-2);
+      align-items: center;
+    }
+  }
+  &-image {
+    width: var(--size-4);
+    height: var(--size-4);
+    border-radius: var(--radius-5);
+  }
+  &-bottom {
+    margin-top: var(--spacing-1);
+    line-break: loose;
+
+    .description {
+    }
+    .subscribers {
+      width: 100%;
+      display: inline-block;
+      text-align: right;
+      color: var(--color-element-border);
+    }
   }
 }
