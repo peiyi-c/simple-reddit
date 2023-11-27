@@ -6,7 +6,9 @@ export const NotFound = () => {
   useEffect(() => {
     setTimeout(() => {
       navigate("/");
-    }, 1000);
+    }, 1500);
   }, []);
-  return <h1>Page not found</h1>;
+  return (
+    <h1 style={{ textAlign: "center", marginTop: "5rem" }}>Page not found</h1>
+  );
 };
