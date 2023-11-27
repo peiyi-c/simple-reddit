@@ -11,6 +11,7 @@
   border-radius: var(--radius);
   border: 0.25px solid var(--color-element-border);
   box-shadow: var(--box-shadow);
+
   &__ups,
   &__downs {
     font-size: var(--size-0);
@@ -21,6 +22,7 @@
     text-align: right;
     font-size: var(--size-1);
     font-weight: 600;
+    align-self: end;
   }
   &__author {
     display: inline-block;
@@ -69,22 +71,19 @@
   &__image {
     max-width: 100%;
     max-height: 25rem;
-    margin-top: var(--spacing-2);
+    margin: var(--spacing-2) auto auto auto;
     object-fit: cover;
     border-radius: var(--radius);
     &-sm {
       @extend .card__image;
       max-width: 50%;
       max-height: 15rem;
-      position: relative;
-      left: 50%;
-      transform: translateX(-50%);
     }
   }
   &__video {
     max-width: 100%;
     max-height: 25rem;
-    margin-top: var(--spacing-2);
+    margin: var(--spacing-2) auto auto auto;
     object-fit: contain;
     border-radius: var(--radius);
   }
@@ -113,5 +112,63 @@
   }
   &-bottom {
     width: 100%;
+  }
+}
+
+// skeleton
+.skeleton {
+  width: 10%;
+  height: var(--size-2);
+  margin-bottom: var(--spacing-0);
+  background: var(--color-element-border);
+  opacity: 0.5;
+  border-radius: var(--radius);
+  animation: skeleton-loading 1s linear infinite alternate;
+
+  &-name {
+    @extend .skeleton;
+    width: 12%;
+
+    &-lg {
+      @extend .skeleton-name;
+      height: calc(var(--spacing-2) * 1.2);
+      width: 15%;
+    }
+  }
+  &-time {
+    @extend .skeleton;
+    height: var(--size-0);
+    width: 18%;
+  }
+  &-title {
+    @extend .skeleton;
+    width: 15%;
+    animation: skeleton-loading 1.1s linear infinite alternate;
+  }
+  &-text {
+    @extend .skeleton;
+    height: var(--size-1);
+    width: 100%;
+    animation: skeleton-loading 1.2s linear infinite alternate;
+  }
+}
+
+@for $i from 1 to 4 {
+  .skeleton-text-#{$i} {
+    @extend .skeleton;
+    width: 100%;
+    animation: skeleton-loading calc(0.6s * $i) linear infinite alternate;
+  }
+}
+
+@keyframes skeleton-loading {
+  0% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0.75;
   }
 }

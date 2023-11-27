@@ -21,8 +21,8 @@
     }
   }
   &-image {
-    width: var(--size-4);
-    height: var(--size-4);
+    width: var(--size-3);
+    height: var(--size-3);
     border-radius: var(--radius-5);
   }
   &-bottom {
@@ -36,6 +36,36 @@
       display: inline-block;
       text-align: right;
       color: var(--color-element-border);
+    }
+  }
+}
+
+.skeleton {
+  width: 10%;
+  height: var(--size-2);
+  margin-bottom: var(--spacing-0);
+  background: var(--color-element-border);
+  opacity: 0.5;
+  border-radius: var(--radius);
+  animation: skeleton-loading 1s linear infinite alternate;
+  &-avator-sm {
+    @extend .community-image;
+    opacity: 0.1;
+    background-color: var(--color-element-border);
+    animation: skeleton-loading 1s linear infinite alternate;
+  }
+  &-community {
+    @extend .skeleton;
+    width: calc(var(--size-5) * 2);
+    height: var(--size-2);
+  }
+  &-description {
+    @extend .skeleton;
+    width: 77%;
+    height: var(--size-1);
+    margin: 0;
+    &:last-child {
+      width: 70%;
     }
   }
 }

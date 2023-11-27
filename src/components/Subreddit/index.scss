@@ -12,7 +12,9 @@ aside {
 
     display: flex;
     gap: var(--spacing-1);
+    align-items: center;
     overflow: hidden;
+    cursor: pointer;
     &:not(:last-child) {
       margin-bottom: var(--spacing-1);
     }
@@ -22,5 +24,26 @@ aside {
       height: var(--size-3);
       border-radius: var(--radius-5);
     }
+  }
+}
+
+// skeleton
+.skeleton {
+  &-avator {
+    height: var(--size-3);
+    width: var(--size-3);
+    border-radius: var(--spacing-3);
+    opacity: 0.1;
+    background-color: var(--color-element-border);
+    animation: skeleton-loading 1s ease-out infinite alternate;
+  }
+
+  &-reddit {
+    height: var(--size-2);
+    width: 50%;
+    opacity: 0.1;
+    border-radius: var(--radius);
+    background-color: var(--color-element-border);
+    animation: skeleton-loading 1.2s ease-in infinite alternate;
   }
 }
