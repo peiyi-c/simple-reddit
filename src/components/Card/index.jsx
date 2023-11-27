@@ -7,6 +7,7 @@ import { fetchPostComments } from "../../features/subredditSlice";
 import { selectVisibility } from "../../features/visibilitySlice";
 import { fetchContentComments } from "../../features/searchTermSlice";
 import { useState } from "react";
+import { CommentLoading } from "../CommentLoading";
 
 export const Card = ({ index, card }) => {
   const dispatch = useDispatch();
@@ -29,7 +30,7 @@ export const Card = ({ index, card }) => {
     thumbnail,
   } = card.data;
 
-  const hasImage = url.includes(".jpg");
+  const hasImage = url?.includes(".jpg");
   const hasVideo = media?.reddit_video?.fallback_url;
   const [readmore, setReadmore] = useState(false);
   const toggleReadmore = () => {
@@ -61,12 +62,15 @@ export const Card = ({ index, card }) => {
         </div>
 
         <h1 className="card__title">{title}</h1>
-        {selftext.length <= 200 ? (
+
+        {selftext?.length === 0 ? (
+          ""
+        ) : selftext?.length <= 200 ? (
           <span>{selftext}</span>
         ) : (
           <>
             <span>
-              {selftext.slice(0, 200)}
+              {selftext?.slice(0, 200)}
               <span className={`${readmore ? "inactive" : "active"}`}>
                 ...{" "}
               </span>
@@ -77,7 +81,7 @@ export const Card = ({ index, card }) => {
                 read more
               </span>
               <span className={`${readmore ? "active" : "inactive"}`}>
-                {selftext.slice(200)}
+                {selftext?.slice(200)}
               </span>{" "}
               <span
                 className={`more ${readmore ? "active" : "inactive"}`}
@@ -103,20 +107,35 @@ export const Card = ({ index, card }) => {
         )}
 
         {/* comment */}
-        <div className="card-bottom">
-          <div className="card__comment-icon" onClick={handleCommentClick}>
-            <ion-icon name="chatbubbles"></ion-icon>
-            <span>{num_comments}</span>
+        {num_comments > 0 ? (
+          <div className="card-bottom">
+            <div className="card__comment-icon" onClick={handleCommentClick}>
+              <ion-icon name="chatbubbles"></ion-icon>
+              <span>{num_comments}</span>
+            </div>
+            <div className="card__comment">
+              {isLoadingComments &&
+                showingComments &&
+                Array(num_comments)
+                  .fill(0)
+                  .map((num, index) => <CommentLoading key={index} />)}
+              {hasErrorComments && (
+                <h3>Error loading Comments, please try it later...</h3>
+              )}
+              {showingComments &&
+                !isLoadingComments &&
+                comments.map((comment, index) => {
+                  return (
+                    <>
+                      <Comment key={index} comment={comment} />
+                    </>
+                  );
+                })}
+            </div>
           </div>
-          <div className="card__comment">
-            {isLoadingComments && <h3>Loading Comments</h3>}
-            {hasErrorComments && <h3>Error loading Comments</h3>}
-            {showingComments &&
-              comments.map((comment, index) => {
-                return <Comment key={index} comment={comment} />;
-              })}
-          </div>
-        </div>
+        ) : (
+          ""
+        )}
       </div>
     </article>
   );
