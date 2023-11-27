@@ -13,7 +13,7 @@ import {
 
 const appRouter = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/simple-reddit" element={<Header />}>
+    <Route path="/" element={<Header />}>
       <Route index element={<HomePage />} />
       <Route path="/r/:subreddit" element={<HomePage />} />
       <Route path="/search" element={<Search />} />
