@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import "./index.scss";
 import logo from "../../assets/logo.png";
 import { useEffect } from "react";
@@ -44,11 +45,7 @@ export const Header = () => {
     if (value.trim() == "") {
       return;
     }
-    //setSearch((search) => {
-    // search.set("q", e.target.value);
-    // search.set("type", "link");
-    //  return search;
-    //});
+
     setSearch((search) => ({ ...search, q: e.target.value, type: "link" }));
 
     dispatch(setSearchTerm(value));

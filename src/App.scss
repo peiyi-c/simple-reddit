@@ -92,7 +92,7 @@ body {
 }
 
 .md.hydrated {
-  font-size: var(--size-2);
+  font-size: calc(var(--size-2) * 1.5);
 }
 @media (min-width: 750px) {
   .container {

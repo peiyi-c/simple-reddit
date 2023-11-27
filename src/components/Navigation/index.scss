@@ -18,7 +18,8 @@ nav {
   gap: var(--spacing-2);
 
   button {
-    font-size: var(--size-1);
+    padding: calc(var(--spacing-1) / 1.5) var(--spacing-2);
+    font-size: var(--size-2);
     background-color: var(--color-element-bg);
     border-radius: var(--radius-1);
     text-transform: lowercase;
