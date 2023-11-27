@@ -30,3 +30,7 @@ export const randomColor = () => {
   }
   return hexColor;
 };
+
+export const randomNumber = (num) => {
+  return Math.floor(Math.random() * num + 1);
+};
