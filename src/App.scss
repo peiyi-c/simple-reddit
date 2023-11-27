@@ -70,6 +70,7 @@ body.dark {
 }
 
 body {
+  min-width: 375px;
   background-color: var(--color-bd-bg);
   color: var(--color-text);
 }
