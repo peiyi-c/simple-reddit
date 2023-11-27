@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import "./index.scss";
 import Card from "../Card";
+import { CardLoading } from "../CardLoading";
 import { useEffect } from "react";
 import { selectPosts, fetchPosts } from "../../features/subredditSlice";
 import {
@@ -20,11 +21,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams, useLocation, useNavigate } from "react-router-dom";
 import { User } from "../User";
 import { Community } from "../Community";
+import { randomNumber } from "../../utilities/helpers";
+import { UserLoading } from "../UserLoading";
+import { CommunityLoading } from "../CommunityLoading";
 
 export const Main = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
+
   // Visibility
   const visibility = useSelector(selectVisibility);
   useEffect(() => {
@@ -37,7 +42,9 @@ export const Main = () => {
 
   // Posts
   const redditPosts = useSelector((state) => state.subreddit);
-  const { hasError, isLoading, selectedSubreddit } = redditPosts;
+  const { selectedSubreddit } = redditPosts;
+  const postHasError = redditPosts.hasError;
+  const postIsLoading = redditPosts.isLoading;
   const posts = useSelector(selectPosts);
 
   useEffect(() => {
@@ -47,10 +54,14 @@ export const Main = () => {
   }, [dispatch, selectedSubreddit, visibility, location]);
 
   // Contents
-  const type = useSelector(selectType);
+  const searchContent = useSelector((state) => state.search);
+  const contentHasError = searchContent.hasError;
+  const contentIsLoading = searchContent.isLoading;
   const searchTerm = useSelector(selectSearchTerm);
-  const [search, setSearch] = useSearchParams();
+  const type = useSelector(selectType);
   const contents = useSelector(selectContents);
+
+  const [search, setSearch] = useSearchParams();
 
   useEffect(() => {
     if (visibility === "posts" && location.pathname === "/search") {
@@ -75,19 +86,50 @@ export const Main = () => {
   return (
     <main className="center container-sm">
       <section className="cards">
+        {/* loading skeleton */}
         {visibility === "posts" &&
+          postIsLoading &&
+          Array(randomNumber(20))
+            .fill(0)
+            .map((num, index) => <CardLoading key={index} />)}
+        {visibility === "contents" &&
+          contentIsLoading &&
+          type === "link" &&
+          Array(randomNumber(20))
+            .fill(0)
+            .map((num, index) => <CardLoading key={index} />)}
+        {visibility === "contents" &&
+          contentIsLoading &&
+          type === "user" &&
+          Array(randomNumber(10))
+            .fill(0)
+            .map((num, index) => <UserLoading key={index} />)}
+        {visibility === "contents" &&
+          contentIsLoading &&
+          type === "sr" &&
+          Array(randomNumber(10))
+            .fill(0)
+            .map((num, index) => <CommunityLoading key={index} />)}
+
+        {/* posts */}
+        {visibility === "posts" &&
+          !postIsLoading &&
           posts.map((post, index) => (
             <Card key={index} index={index} card={post} />
           ))}
+        {/* contents */}
         {visibility === "contents" &&
+          !contentIsLoading &&
           type === "link" &&
           contents.map((content, index) => (
             <Card key={index} index={index} card={content} />
           ))}
         {visibility === "contents" &&
+          !contentIsLoading &&
           type === "user" &&
           contents.map((content, index) => <User user={content} key={index} />)}
         {visibility === "contents" &&
+          !contentIsLoading &&
           type === "sr" &&
           contents.map((content, index) => (
             <Community community={content} key={index} />
