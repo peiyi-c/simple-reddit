@@ -1,11 +1,5 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { getSubreddit, getLinkComments } from "../api/reddit";
-
-export const loadPosts = createAsyncThunk("subreddit/getPosts", getSubreddit);
-export const loadPostComments = createAsyncThunk(
-  "subreddit/getComments",
-  getLinkComments
-);
 
 export const subredditSlice = createSlice({
   name: "subreddit",
@@ -22,47 +16,39 @@ export const subredditSlice = createSlice({
     setSelectedSubreddit(state, action) {
       state.selectedSubreddit = action.payload;
     },
-    toggleShowingPostComments(state, action) {
-      state.posts[action.payload].showingComments =
-        !state.posts[action.payload].showingComments;
+
+    getPostPending(state) {
+      state.isLoading = true;
+      state.hasError = false;
+    },
+    getPostSuccess(state) {
+      state.isLoading = false;
+      state.hasError = false;
+    },
+    getPostFailed(state) {
+      state.isLoading = false;
+      state.hasError = true;
     },
     setPostComment(state, action) {
       const { index, comments } = action.payload;
       state.posts[index].comments = comments;
     },
-  },
-  extraReducers: (builder) => {
-    builder
-      .addCase(loadPosts.pending, (state) => {
-        state.isLoading = true;
-        state.hasError = false;
-      })
-      .addCase(loadPosts.rejected, (state) => {
-        state.isLoading = false;
-        state.hasError = true;
-      })
-      .addCase(loadPosts.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.hasError = false;
-        state.posts = action.payload;
-      })
-      .addCase(loadPostComments.pending, (state, action) => {
-        state.posts[action.payload].showingComments =
-          !state.posts[action.payload].showingComments;
-        if (!state.posts[action.payload.index].showingComments) {
-          return;
-        }
-        state.posts[action.payload.index].isLoadingComments = true;
-        state.posts[action.payload.index].hasErrorComments = false;
-      })
-      .addCase(loadPostComments.rejected, (state, action) => {
-        state.posts[action.payload.index].isLoadingComments = false;
-        state.posts[action.payload.index].hasErrorComments = true;
-      })
-      .addCase(loadPostComments.fulfilled, (state, action) => {
-        state.posts[action.payload.index].isLoadingComments = false;
-        state.posts[action.payload.index].comments = action.payload.comments;
-      });
+    toggleShowingPostComments(state, action) {
+      state.posts[action.payload].showingComments =
+        !state.posts[action.payload].showingComments;
+    },
+    getPostCommentPending(state, action) {
+      state.posts[action.payload].isLoadingComments = true;
+      state.posts[action.payload].hasErrorComments = false;
+    },
+    getPostCommentSuccess(state, action) {
+      state.posts[action.payload].isLoadingComments = false;
+      state.posts[action.payload].hasErrorComments = false;
+    },
+    getPostCommentFailed(state, action) {
+      state.posts[action.payload].isLoadingComments = false;
+      state.posts[action.payload].hasErrorComments = true;
+    },
   },
 });
 
@@ -74,10 +60,17 @@ export const {
   setSelectedSubreddit,
   toggleShowingPostComments,
   setPostComment,
+  getPostPending,
+  getPostSuccess,
+  getPostFailed,
+  getPostCommentPending,
+  getPostCommentSuccess,
+  getPostCommentFailed,
 } = subredditSlice.actions;
 export default subredditSlice.reducer;
 
 export const fetchPosts = (subreddit) => async (dispatch) => {
+  dispatch(getPostPending());
   try {
     const posts = await getSubreddit(subreddit);
     const postsWithComments = posts.map((post) => ({
@@ -88,17 +81,22 @@ export const fetchPosts = (subreddit) => async (dispatch) => {
       hasErrorComments: false,
     }));
     dispatch(setPost(postsWithComments));
+    dispatch(getPostSuccess());
   } catch (err) {
     console.warn(err);
+    dispatch(getPostFailed());
   }
 };
 
 export const fetchPostComments = (index, permalink) => async (dispatch) => {
+  dispatch(getPostCommentPending(index));
   dispatch(toggleShowingPostComments(index));
   try {
     const comments = await getLinkComments(index, permalink);
     dispatch(setPostComment({ index: index, comments: comments }));
+    dispatch(getPostCommentSuccess(index));
   } catch (err) {
     console.warn(err);
+    dispatch(getPostCommentFailed(index));
   }
 };

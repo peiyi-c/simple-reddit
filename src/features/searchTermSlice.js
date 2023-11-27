@@ -1,15 +1,5 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { getSearchContent, getLinkComments } from "../api/reddit";
-
-export const loadContents = createAsyncThunk(
-  "search/getContents",
-  getSearchContent
-);
-
-export const loadContentComments = createAsyncThunk(
-  "search/getComments",
-  getLinkComments
-);
 
 export const searchTermSlice = createSlice({
   name: "search",
@@ -30,6 +20,18 @@ export const searchTermSlice = createSlice({
     setContent(state, action) {
       state.contents = action.payload;
     },
+    getContentPending(state) {
+      state.isLoading = true;
+      state.hasError = false;
+    },
+    getContentSuccess(state) {
+      state.isLoading = false;
+      state.hasError = false;
+    },
+    getContentFailed(state) {
+      state.isLoading = false;
+      state.hasError = true;
+    },
     setType(state, action) {
       state.type = action.payload;
     },
@@ -41,22 +43,18 @@ export const searchTermSlice = createSlice({
       const { index, comments } = action.payload;
       state.contents[index].comments = comments;
     },
-  },
-  extraReducers: (builder) => {
-    builder
-      .addCase(loadContents.pending, (state) => {
-        state.isLoading = true;
-        state.hasError = false;
-      })
-      .addCase(loadContents.rejected, (state) => {
-        state.isLoading = false;
-        state.hasError = true;
-      })
-      .addCase(loadContents.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.hasError = false;
-        state.posts = action.payload;
-      });
+    getContentCommentPending(state, action) {
+      state.contents[action.payload].isLoadingComments = true;
+      state.contents[action.payload].hasErrorComments = false;
+    },
+    getContentCommentSuccess(state, action) {
+      state.contents[action.payload].isLoadingComments = false;
+      state.contents[action.payload].hasErrorComments = false;
+    },
+    getContentCommentFailed(state, action) {
+      state.contents[action.payload].isLoadingComments = false;
+      state.contents[action.payload].hasErrorComments = true;
+    },
   },
 });
 
@@ -64,9 +62,15 @@ export const {
   setSearchTerm,
   clearSearchTerm,
   setContent,
+  getContentPending,
+  getContentSuccess,
+  getContentFailed,
   setType,
   setContentComment,
   toggleShowingContentComments,
+  getContentCommentPending,
+  getContentCommentSuccess,
+  getContentCommentFailed,
 } = searchTermSlice.actions;
 export const selectSearchTerm = (state) => state.search.searchTerm;
 export const selectType = (state) => state.search.type;
@@ -77,6 +81,7 @@ export default searchTermSlice.reducer;
 export const fetchContents =
   (searchTerm, type = "link") =>
   async (dispatch) => {
+    dispatch(getContentPending());
     if (type == null) {
       type = "link";
     }
@@ -91,20 +96,26 @@ export const fetchContents =
           hasErrorComments: false,
         }));
         dispatch(setContent(contentsWithComments));
+        dispatch(getContentSuccess());
       } else {
         dispatch(setContent(contents));
+        dispatch(getContentSuccess());
       }
     } catch (err) {
       console.warn(err);
+      dispatch(getContentFailed());
     }
   };
 
 export const fetchContentComments = (index, permalink) => async (dispatch) => {
+  dispatch(getContentCommentPending(index));
   dispatch(toggleShowingContentComments(index));
   try {
     const comments = await getLinkComments(index, permalink);
     dispatch(setContentComment({ index: index, comments: comments }));
+    dispatch(getContentCommentSuccess(index));
   } catch (err) {
     console.warn(err);
+    dispatch(getContentCommentFailed(index));
   }
 };
