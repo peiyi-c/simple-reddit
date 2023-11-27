@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchPostComments } from "../../features/subredditSlice";
 import { selectVisibility } from "../../features/visibilitySlice";
 import { fetchContentComments } from "../../features/searchTermSlice";
+import { useState } from "react";
 
 export const Card = ({ index, card }) => {
   const dispatch = useDispatch();
@@ -29,7 +30,11 @@ export const Card = ({ index, card }) => {
   } = card.data;
 
   const hasImage = url.includes(".jpg");
-
+  const hasVideo = media?.reddit_video?.fallback_url;
+  const [readmore, setReadmore] = useState(false);
+  const toggleReadmore = () => {
+    setReadmore((readmore) => !readmore);
+  };
   const handleCommentClick = () => {
     visibility === "posts"
       ? dispatch(fetchPostComments(index, permalink))
@@ -56,13 +61,36 @@ export const Card = ({ index, card }) => {
         </div>
 
         <h1 className="card__title">{title}</h1>
-        <span>{selftext}</span>
+        {selftext.length <= 200 ? (
+          <span>{selftext}</span>
+        ) : (
+          <>
+            <span>
+              {selftext.slice(0, 200)}
+              <span className={`${readmore ? "inactive" : "active"}`}>
+                ...{" "}
+              </span>
+              <span
+                className={`more ${readmore ? "inactive" : "active"}`}
+                onClick={() => toggleReadmore()}
+              >
+                read more
+              </span>
+              <span className={`${readmore ? "active" : "inactive"}`}>
+                {selftext.slice(200)}
+              </span>{" "}
+              <span
+                className={`more ${readmore ? "active" : "inactive"}`}
+                onClick={() => toggleReadmore()}
+              >
+                read less
+              </span>
+            </span>
+          </>
+        )}
 
         {url && url.includes(".jpg") && (
           <img className="card__image" src={url} alt="card" />
-        )}
-        {!hasImage && thumbnail && thumbnail.includes(".jpg") && (
-          <img className="card__image-sm" src={thumbnail} alt="card" />
         )}
 
         {media?.reddit_video?.fallback_url && (
@@ -70,7 +98,10 @@ export const Card = ({ index, card }) => {
             <source src={media.reddit_video.fallback_url} type="video/mp4" />
           </video>
         )}
-        {/* {media?.oembed?.html && (media.oembed.html)} */}
+        {!hasImage && !hasVideo && thumbnail && thumbnail.includes(".jpg") && (
+          <img className="card__image-sm" src={thumbnail} alt="card" />
+        )}
+
         {/* comment */}
         <div className="card-bottom">
           <div className="card__comment-icon" onClick={handleCommentClick}>
