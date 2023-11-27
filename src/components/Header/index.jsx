@@ -66,37 +66,48 @@ export const Header = () => {
             onClick={handleRedditChange}
           />
 
-          <fieldset>
-            <ion-icon name="search" title="search"></ion-icon>
+          <fieldset data-tooltip="search">
+            <ion-icon
+              class="header__search"
+              name="search"
+              title="search"
+            ></ion-icon>
             <label htmlFor="search" />
             <input
               id="search"
               type="search"
               name="search"
               onKeyUp={handleSearch}
+              placeholder="search..."
             />
           </fieldset>
-
-          <ion-icon
-            class="header__icon"
-            name="heart"
-            title="/r/popular"
-            onClick={handleRedditChange}
-          ></ion-icon>
-
-          <ion-icon
-            class="header__icon"
-            name="balloon"
-            title="/r/all"
-            onClick={handleRedditChange}
-          ></ion-icon>
-
-          <ion-icon
-            class="header__icon"
-            name="moon-outline"
-            title="toggle mode"
-            onClick={toggleTheme}
-          ></ion-icon>
+          <span data-tooltip="popular" role="link">
+            <ion-icon
+              class="header__icon"
+              name="heart"
+              title="/r/popular"
+              onClick={handleRedditChange}
+            ></ion-icon>
+          </span>
+          <span data-tooltip="all" role="link">
+            <ion-icon
+              class="header__icon"
+              name="balloon"
+              title="/r/all"
+              onClick={handleRedditChange}
+            ></ion-icon>
+          </span>
+          <span
+            data-tooltip={`${theme === "light" ? "dark" : "light"}`}
+            role="switch"
+          >
+            <ion-icon
+              class="header__icon"
+              name="moon-outline"
+              title="toggle mode"
+              onClick={toggleTheme}
+            ></ion-icon>
+          </span>
         </div>
       </header>
       <Outlet />
