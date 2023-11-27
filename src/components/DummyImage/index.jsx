@@ -8,9 +8,10 @@ export const DummyImage = ({ size }) => {
       role="img"
       style={{
         backgroundColor: randomColor(),
-        height: `${size}`,
-        width: `${size}`,
+        minHeight: `${size}`,
+        minWidth: `${size}`,
         borderRadius: "50%",
+        border: "1px solid grey",
         opacity: "0.2",
       }}
     ></div>
