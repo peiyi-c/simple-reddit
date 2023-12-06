@@ -9,7 +9,16 @@ This is a simplified reddit using [this reddit API](https://github.com/reddit-ar
 - Users can filter the data based on posts, communities and people
 - Users can see comments and replies when when clicking comment icon
 
-### Wireframes
+#### Wireframe
+![Simple Reddit](https://github.com/peiyi-c/simple-reddit/assets/73789013/87a2c2af-6f15-4945-a8e5-2e18a7873813)
+
+#### Screenshot
+![Simple Reddit Screenshot](https://github.com/peiyi-c/simple-reddit/assets/73789013/5d456a57-92ef-4d24-9063-51133b09ad5b)
+
+#### Live Link
+
+- [Live Link](https://nasty-riddle.surge.sh/)
+  
 
 ### Technologies used
 
