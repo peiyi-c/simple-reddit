@@ -53,21 +53,36 @@ This is a simplified reddit using [this reddit API](https://github.com/reddit-ar
 │   │     │   ├── index.jsx
 │   │     │   └── index.scss
 │   │     │
+│   │     ├── CardLoading
+│   │     │   └── index.jsx
+│   │     │
 │   │     ├── Community
 │   │     │   ├── index.jsx
 │   │     │   └── index.scss
+│   │     │
+│   │     ├── CommunityLoading
+│   │     │   └── index.jsx
 │   │     │
 │   │     ├── User
 │   │     │   ├── index.jsx
 │   │     │   └── index.scss
 │   │     │
+│   │     ├── UserLoading
+│   │     │   └── index.jsx
+│   │     │
 │   │     ├── Comment
 │   │     │   ├── index.jsx
 │   │     │   └── index.scss
 │   │     │
+│   │     ├── CommentLoading
+│   │     │   └── index.jsx
+│   │     │
 │   │     ├── Subreddit
 │   │     │   ├── index.jsx
 │   │     │   └── index.scss
+│   │     │
+│   │     ├── SubredditLoading
+│   │     │   └── index.jsx
 │   │     │
 │   │     ├── Reply
 │   │     │   ├── index.jsx
