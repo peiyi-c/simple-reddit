@@ -100,6 +100,7 @@ export const Header = () => {
           <span
             data-tooltip={`${theme === "light" ? "dark" : "light"}`}
             role="switch"
+            aria-checked="true"
           >
             <ion-icon
               class="header__icon"

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import "./index.scss";
 import { setType } from "../../features/searchTermSlice";
 import { useDispatch } from "react-redux";
@@ -20,17 +21,17 @@ export const Navigation = () => {
     <nav className="container container-lg">
       <ul className="navi" role="list">
         <li>
-          <button onClick={handleClick} title="link">
+          <button onClick={handleClick} title="link" aria-label="posts">
             POSTS
           </button>
         </li>
         <li>
-          <button onClick={handleClick} title="sr">
+          <button onClick={handleClick} title="sr" aria-label="communities">
             COMMUNITIES
           </button>
         </li>
         <li>
-          <button onClick={handleClick} title="user">
+          <button onClick={handleClick} title="user" aria-label="people">
             PEOPLE
           </button>
         </li>
