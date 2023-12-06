@@ -114,22 +114,26 @@ export const Main = () => {
         {/* posts */}
         {visibility === "posts" &&
           !postIsLoading &&
+          posts &&
           posts.map((post, index) => (
             <Card key={index} index={index} card={post} />
           ))}
         {/* contents */}
         {visibility === "contents" &&
           !contentIsLoading &&
+          contents &&
           type === "link" &&
           contents.map((content, index) => (
             <Card key={index} index={index} card={content} />
           ))}
         {visibility === "contents" &&
           !contentIsLoading &&
+          contents &&
           type === "user" &&
           contents.map((content, index) => <User user={content} key={index} />)}
         {visibility === "contents" &&
           !contentIsLoading &&
+          contents &&
           type === "sr" &&
           contents.map((content, index) => (
             <Community community={content} key={index} />

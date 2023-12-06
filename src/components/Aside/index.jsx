@@ -58,6 +58,7 @@ export const Aside = () => {
             </>
           )}
           {!isLoading &&
+            communities &&
             communities.map((community, index) => (
               <Subreddit community={community} key={index} />
             ))}
