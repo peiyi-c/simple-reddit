@@ -129,3 +129,7 @@ This is a simplified reddit using [this reddit API](https://github.com/reddit-ar
 └── README.md
 
 ```
+
+### Future work
+
+- Limite to 10 queries per minute. (free Reddit APIs limitation)
