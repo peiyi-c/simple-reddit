@@ -15,6 +15,7 @@ aside {
     gap: 5%;
     &-logo {
       width: 20%;
+      object-fit: contain;
     }
   }
 }

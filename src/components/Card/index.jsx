@@ -92,7 +92,6 @@ export const Card = ({ index, card }) => {
             </span>
           </>
         )}
-
         {url && url.includes(".jpg") && (
           <img className="card__image" src={url} alt="card" />
         )}
