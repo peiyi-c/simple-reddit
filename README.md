@@ -9,6 +9,16 @@ This is a simplified reddit using [this reddit API](https://github.com/reddit-ar
 - Users can filter the data based on posts, communities and people
 - Users can see comments and replies when when clicking comment icon
 
+### Wireframes
+
+### Technologies used
+
+- SCSS
+- React
+- React Router
+- Redux
+- Redux Toolkit
+
 ### File structure
 
 ```
