@@ -22,7 +22,7 @@ This is a simplified reddit using [this reddit API](https://github.com/reddit-ar
 ![Simple Reddit Screenshot](https://github.com/peiyi-c/simple-reddit/assets/73789013/5d456a57-92ef-4d24-9063-51133b09ad5b)
 
 <!-- 
-![Opera Snapshot_2024-02-02_095638_real-clock surge sh](https://github.com/peiyi-c/simple-reddit/assets/73789013/eb401d83-eedf-4205-876e-c2a6b32de999) 
+![Opera Snapshot_2024-02-02_104513_real-clock surge sh](https://github.com/peiyi-c/simple-reddit/assets/73789013/fd6d176d-199f-4a46-b525-4d3684d92a38)
 -->
 
 ### Technologies used
