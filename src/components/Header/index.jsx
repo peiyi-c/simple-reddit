@@ -81,11 +81,11 @@ export const Header = () => {
               placeholder="search..."
             />
           </fieldset>
-          <span data-tooltip="popular" role="link">
+          <span data-tooltip="cute" role="link">
             <ion-icon
               class="header__icon"
               name="heart"
-              title="/r/popular"
+              title="/r/cute"
               onClick={handleRedditChange}
             ></ion-icon>
           </span>
