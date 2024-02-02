@@ -12,6 +12,7 @@ import { CommentLoading } from "../CommentLoading";
 export const Card = ({ index, card }) => {
   const dispatch = useDispatch();
   const visibility = useSelector(selectVisibility);
+  console.log(card.data);
   const { showingComments, comments, isLoadingComments, hasErrorComments } =
     card;
   const {
@@ -30,12 +31,17 @@ export const Card = ({ index, card }) => {
     thumbnail,
   } = card.data;
 
-  const hasImage = url?.includes(".jpg");
-  const hasVideo = media?.reddit_video?.fallback_url;
   const [readmore, setReadmore] = useState(false);
+
+  const hasImage = url?.includes(".jpg") || url?.includes(".jpeg");
+  const hasThumbnail =
+    thumbnail.includes(".jpg") || thumbnail.includes(".jpeg");
+  const hasVideo = media?.reddit_video?.fallback_url;
+
   const toggleReadmore = () => {
     setReadmore((readmore) => !readmore);
   };
+
   const handleCommentClick = () => {
     visibility === "posts"
       ? dispatch(fetchPostComments(index, permalink))
@@ -92,17 +98,17 @@ export const Card = ({ index, card }) => {
             </span>
           </>
         )}
-        {url && url.includes(".jpg") && (
-          <img className="card__image" src={url} alt="card" />
-        )}
 
-        {media?.reddit_video?.fallback_url && (
+        {hasImage ? (
+          <img className="card__image" src={url} alt="card" />
+        ) : hasVideo ? (
           <video className="card__video" controls muted>
             <source src={media.reddit_video.fallback_url} type="video/mp4" />
           </video>
-        )}
-        {!hasImage && !hasVideo && thumbnail && thumbnail.includes(".jpg") && (
+        ) : hasThumbnail ? (
           <img className="card__image-sm" src={thumbnail} alt="card" />
+        ) : (
+          ""
         )}
 
         {/* comment */}
