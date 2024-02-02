@@ -117,18 +117,14 @@ export const Card = ({ index, card }) => {
                 showingComments &&
                 Array(num_comments)
                   .fill(0)
-                  .map((num, index) => <CommentLoading key={index} />)}
+                  .map((_, index) => <CommentLoading key={index} />)}
               {hasErrorComments && (
                 <h3>Error loading Comments, please try it later...</h3>
               )}
               {showingComments &&
                 !isLoadingComments &&
                 comments.map((comment, index) => {
-                  return (
-                    <>
-                      <Comment key={index} comment={comment} />
-                    </>
-                  );
+                  return <Comment key={index} comment={comment} />;
                 })}
             </div>
           </div>
