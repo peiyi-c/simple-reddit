@@ -52,6 +52,7 @@
 
   .active {
     display: inline;
+    cursor: pointer;
   }
   .inactive {
     display: none;
@@ -96,6 +97,7 @@
       display: flex;
       align-items: center;
       justify-content: flex-end;
+      cursor: pointer;
     }
   }
   &-top {
